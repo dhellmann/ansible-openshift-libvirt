@@ -148,3 +148,15 @@
     mode: 0644
   notify:
     - reload NetworkManager
+
+- name: Update iptables to allow insecure libvirt clients
+  become: true
+  iptables:
+    action: insert
+    chain: INPUT
+    protocol: tcp
+    source: "{{ openshift_libvirt_cluster_ip_range }}"
+    destination: "{{ openshift_libvirt_libvirt_ip.stdout }}"
+    destination_port: 16509
+    jump: ACCEPT
+    comment: "Allow insecure libvirt clients"
