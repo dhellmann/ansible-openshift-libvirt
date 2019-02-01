@@ -4,3 +4,15 @@
   service:
     name: libvirtd
     state: restarted
+
+- name: Build storage pool
+  become: true
+  virt_pool:
+    command: build
+    name: default
+
+- name: Start storage pool
+  become: true
+  virt_pool:
+    command: start
+    name: default

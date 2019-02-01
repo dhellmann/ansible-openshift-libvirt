@@ -110,12 +110,9 @@
     name: default
     xml: '{{ lookup("template", "default-pool.xml") }}'
     autostart: true
-
-- name: Create default storage pool
-  become: true
-  virt_pool:
-    command: build
-    name: default
+  notify:
+    - build storage pool
+    - start storage pool
 
 - name: Set autostart for default storage pool
   become: true
@@ -123,8 +120,4 @@
     name: default
     autostart: true
 
-- name: Start default storage pool
   become: true
-  virt_pool:
-    command: start
-    name: default
