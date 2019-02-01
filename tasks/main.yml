@@ -55,7 +55,7 @@
   become: true
   lineinfile:
     path: /etc/libvirt/libvirtd.conf
-    regexp: "^#listen_tls = 0"
+    regexp: "listen_tls = 0"
     line: "listen_tls = 0"
   notify:
     - restart libvirtd
@@ -64,7 +64,7 @@
   become: true
   lineinfile:
     path: /etc/libvirt/libvirtd.conf
-    regexp: "^#listen_tcp = 1"
+    regexp: "listen_tcp = 1"
     line: "listen_tcp = 1"
   notify:
     - restart libvirtd
@@ -73,8 +73,8 @@
   become: true
   lineinfile:
     path: /etc/libvirt/libvirtd.conf
-    regexp: "^#auth_tcp = \"sasl\""
-    line: "auth_tcp = \"none\""
+    regexp: 'auth_tcp = '
+    line: 'auth_tcp = "none"'
   notify:
     - restart libvirtd
 
@@ -82,8 +82,8 @@
   become: true
   lineinfile:
     path: /etc/libvirt/libvirtd.conf
-    regexp: "^#tcp_port = \"16509\""
-    line: "tcp_port = \"16509\""
+    regexp: 'tcp_port = "16509"'
+    line: 'tcp_port = "16509"'
   notify:
     - restart libvirtd
 
@@ -91,8 +91,8 @@
   become: true
   lineinfile:
     path: /etc/sysconfig/libvirtd
-    regexp: "^#LIBVIRTD_ARGS=\"--listen\""
-    line: "LIBVIRTD_ARGS=\"--listen\""
+    regexp: 'LIBVIRTD_ARGS="--listen"'
+    line: 'LIBVIRTD_ARGS="--listen"'
   notify:
     - restart libvirtd
 
