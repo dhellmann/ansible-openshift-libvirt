@@ -102,3 +102,29 @@
     name: libvirtd
     state: started
     enabled: true
+
+- name: Define default storage pool
+  become: true
+  virt_pool:
+    state: present
+    name: default
+    xml: '{{ lookup("template", "default-pool.xml") }}'
+    autostart: true
+
+- name: Create default storage pool
+  become: true
+  virt_pool:
+    command: build
+    name: default
+
+- name: Set autostart for default storage pool
+  become: true
+  virt_pool:
+    name: default
+    autostart: true
+
+- name: Start default storage pool
+  become: true
+  virt_pool:
+    command: start
+    name: default
