@@ -1,5 +1,11 @@
 ---
 # https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md
+
+- name: Get libvirt IP info
+  shell: |
+    /usr/sbin/ip -4 addr show dev virbr0 | grep inet | awk '{print $2}' | cut -f1 -d/
+  register: openshift_libvirt_libvirt_ip
+
 # https://github.com/openshift/installer/blob/master/docs/dev/dependencies.md
 - name: Install build dependencies
   become: true
@@ -134,7 +140,7 @@
 
 - name: Tell dnsmasq to use cluster
   become: true
-  copy:
+  template:
     src: NetworkManager-openshift.conf
     dest: /etc/NetworkManager/dnsmasq.d/openshift.conf
     owner: root
