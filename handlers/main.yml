@@ -16,3 +16,9 @@
   virt_pool:
     command: start
     name: default
+
+- name: reload NetworkManager
+  become: true
+  service:
+    name: NetworkManager
+    state: reloaded

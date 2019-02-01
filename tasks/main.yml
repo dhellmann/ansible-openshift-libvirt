@@ -120,4 +120,25 @@
     name: default
     autostart: true
 
+- name: Set up NetworkManager DNS overlay
   become: true
+  ini_file:
+    path: /etc/NetworkManager/NetworkManager.conf
+    section: main
+    option: dns
+    value: dnsmasq
+    mode: 0644
+    backup: yes
+  notify:
+    - reload NetworkManager
+
+- name: Tell dnsmasq to use cluster
+  become: true
+  copy:
+    src: NetworkManager-openshift.conf
+    dest: /etc/NetworkManager/dnsmasq.d/openshift.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload NetworkManager
