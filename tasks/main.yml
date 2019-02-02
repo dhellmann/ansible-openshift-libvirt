@@ -115,6 +115,13 @@
     msg: 'could not determine IP on virbr0'
   when: openshift_libvirt_libvirt_ip.stdout == ""
 
+- name: Install ansible virt module dependencies
+  become: true
+  package:
+    name:
+      - libvirt-python
+      - python-lxml
+
 - name: Define default storage pool
   become: true
   virt_pool:
