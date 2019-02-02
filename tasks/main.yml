@@ -1,11 +1,6 @@
 ---
 # https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md
 
-- name: Get libvirt IP info
-  shell: |
-    /usr/sbin/ip -4 addr show dev virbr0 | grep inet | awk '{print $2}' | cut -f1 -d/
-  register: openshift_libvirt_libvirt_ip
-
 # https://github.com/openshift/installer/blob/master/docs/dev/dependencies.md
 - name: Install build dependencies
   become: true
@@ -109,6 +104,16 @@
     name: libvirtd
     state: started
     enabled: true
+
+- name: Get libvirt IP info
+  shell: |
+    /usr/sbin/ip -4 addr show dev virbr0 | grep inet | awk '{print $2}' | cut -f1 -d/
+  register: openshift_libvirt_libvirt_ip
+
+- name: Verify libvirt IP found
+  fail:
+    msg: 'could not determine IP on virbr0'
+  when: openshift_libvirt_libvirt_ip.stdout == ""
 
 - name: Define default storage pool
   become: true
