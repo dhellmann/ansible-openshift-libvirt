@@ -5,13 +5,13 @@
     name: libvirtd
     state: restarted
 
-- name: Build storage pool
+- name: build storage pool
   become: true
   virt_pool:
     command: build
     name: default
 
-- name: Start storage pool
+- name: start storage pool
   become: true
   virt_pool:
     command: start
