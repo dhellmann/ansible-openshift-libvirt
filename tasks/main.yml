@@ -15,12 +15,13 @@
       - golang-bin
       - gcc-c++
 
-- name: Add kvm-common yum repository
-  become: true
-  yum_repository:
-    name: kvm-common
-    baseurl: http://mirror.centos.org/centos/7/virt/x86_64/kvm-common/
-    description: From https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md
+# FIXME: This repo needs to have a gpg key set up. Which one?
+# - name: Add kvm-common yum repository
+#   become: true
+#   yum_repository:
+#     name: kvm-common
+#     baseurl: http://mirror.centos.org/centos/7/virt/x86_64/kvm-common/
+#     description: kvm-common, from https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md
 
 - name: Install libvirt and qemu packages
   become: true
