@@ -16,12 +16,12 @@ package is required.
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here,
-including any variables that are in defaults/main.yml, vars/main.yml,
-and any variables that can/should be set via parameters to the
-role. Any variables that are read from other roles and/or the global
-scope (ie. hostvars, group vars, etc.) should be mentioned here as
-well.
+openshift_libvirt_base_domain -- The DNS name for the cluster.
+
+openshift_libvirt_cluster_name -- The name of the cluster.
+
+openshift_libvirt_cluster_ip_range -- The IP address range to be used
+by the cluster.
 
 Dependencies
 ------------
