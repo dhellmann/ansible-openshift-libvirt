@@ -1,6 +1,19 @@
 ---
 # https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md
 
+- name: Check for /dev/kvm
+  become: true
+  stat:
+    path: /dev/kvm
+    get_attributes: false
+    get_checksum: false
+    get_mime: false
+  register: openshift_libvirt_dev_kvm
+- name: Ensure KVM is enabled
+  fail:
+    msg: No /dev/kvm found
+  when: not openshift_libvirt_dev_kvm.stat.exists
+
 # https://github.com/openshift/installer/blob/master/docs/dev/dependencies.md
 - name: Install build dependencies
   become: true
