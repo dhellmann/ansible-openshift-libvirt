@@ -119,15 +119,19 @@
     state: started
     enabled: true
 
-- name: Get libvirt IP info
+- name: Get libvirt IP info # noqa 301
   shell: |
-    /usr/sbin/ip -4 addr show dev virbr0 | grep inet | awk '{print $2}' | cut -f1 -d/
+    set -o pipefail
+    /usr/sbin/ip -4 addr show dev virbr0 \
+      | grep inet \
+      | awk '{print $2}' \
+      | cut -f1 -d/
   register: openshift_libvirt_libvirt_ip
 
 - name: Verify libvirt IP found
   fail:
     msg: 'could not determine IP on virbr0'
-  when: openshift_libvirt_libvirt_ip.stdout == ""
+  when: not openshift_libvirt_libvirt_ip.stdout
 
 - name: Install ansible virt module dependencies
   become: true
